@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#08111f">
+  <title>Make a Payment | KR INVESTMENT</title>
+  <style>
+    :root { --navy:#08111f; --panel:#101d30; --gold:#d8b66a; --text:#f6f7fb; --muted:#b7c1d1; }
+    * { box-sizing:border-box; }
+    body { margin:0; min-height:100vh; font-family:Arial,Helvetica,sans-serif; color:var(--text);
+      background:radial-gradient(ellipse at top,#172943 0%,var(--navy) 58%); }
+    header { padding:22px 18px; border-bottom:1px solid rgba(216,182,106,.25); }
+    .nav { max-width:1040px; margin:auto; display:flex; justify-content:space-between; align-items:center; gap:14px; }
+    .brand { color:var(--gold); font-size:20px; font-weight:800; letter-spacing:1.4px; text-decoration:none; }
+    .back { color:var(--muted); text-decoration:none; font-size:14px; }
+    main { max-width:1040px; margin:0 auto; padding:42px 18px 56px; }
+    .intro { text-align:center; margin-bottom:28px; }
+    .eyebrow { color:var(--gold); text-transform:uppercase; letter-spacing:2px; font-size:12px; font-weight:bold; }
+    h1 { font-size:clamp(30px,5vw,44px); margin:12px 0; }
+    .intro p { color:var(--muted); line-height:1.6; margin:0 auto; max-width:570px; }
+    .layout { display:grid; grid-template-columns:1fr 1fr; gap:22px; align-items:stretch; }
+    .card { background:rgba(16,29,48,.94); border:1px solid rgba(216,182,106,.23); border-radius:20px; padding:26px; box-shadow:0 20px 55px rgba(0,0,0,.22); }
+    .card h2 { font-size:20px; margin:0 0 18px; }
+    .qr-wrap { background:#fff; border-radius:14px; padding:12px; max-width:380px; margin:0 auto; }
+    .qr-wrap img { display:block; width:100%; height:auto; border-radius:6px; }
+    .qr-caption { color:var(--muted); font-size:13px; text-align:center; margin:14px 0 0; line-height:1.5; }
+    .upi-label { color:var(--muted); font-size:13px; margin-bottom:8px; }
+    .upi-row { display:flex; align-items:center; gap:10px; background:#091321; border:1px solid #314158; border-radius:12px; padding:12px; }
+    .upi-id { overflow-wrap:anywhere; font-size:16px; font-weight:700; flex:1; }
+    button { cursor:pointer; border:0; border-radius:10px; font-weight:700; transition:transform .15s ease,opacity .15s ease; }
+    button:active { transform:scale(.98); }
+    .copy-btn { background:var(--gold); color:#151515; padding:11px 14px; min-width:82px; }
+    .copy-btn:focus-visible, a:focus-visible { outline:2px solid white; outline-offset:3px; }
+    .pay-btn { display:block; text-align:center; width:100%; padding:14px 16px; margin-top:16px; color:#151515; background:var(--gold); text-decoration:none; border-radius:10px; font-weight:800; }
+    .note { margin-top:18px; color:var(--muted); font-size:13px; line-height:1.6; }
+    .status { min-height:20px; color:#9fe3bd; font-size:13px; margin-top:10px; }
+    footer { text-align:center; color:#8997ab; font-size:12px; padding:0 18px 24px; }
+    @media(max-width:720px) { main { padding-top:30px; } .layout { grid-template-columns:1fr; } .card { padding:20px; } .qr-wrap { max-width:340px; } }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="nav" aria-label="Main navigation">
+      <a class="brand" href="/">KR INVESTMENT</a>
+      <a class="back" href="/">← Back to website</a>
+    </nav>
+  </header>
+  <main>
+    <section class="intro">
+      <div class="eyebrow">Secure payment details</div>
+      <h1>Make a Payment</h1>
+      <p>Scan the QR code using your UPI app, or copy the UPI ID below to pay through your preferred app.</p>
+    </section>
+    <section class="layout">
+      <article class="card">
+        <h2>Scan &amp; Pay</h2>
+        <div class="qr-wrap">
+          <img src="assets/phonepe-qr.jpg" alt="PhonePe QR code for KR INVESTMENTS" />
+        </div>
+        <p class="qr-caption">Open PhonePe or another supported UPI app and scan this QR code.</p>
+      </article>
+      <article class="card">
+        <h2>Pay using UPI ID</h2>
+        <div class="upi-label">UPI ID</div>
+        <div class="upi-row">
+          <div class="upi-id" id="upiId">krinvestment@ibl</div>
+          <button class="copy-btn" type="button" id="copyButton">Copy</button>
+        </div>
+        <div class="status" id="copyStatus" role="status" aria-live="polite"></div>
+        <a class="pay-btn" href="upi://pay?pa=krinvestment%40ibl&pn=KR%20INVESTMENTS" id="upiPayLink">Open UPI App</a>
+        <p class="note"><strong>Please check before paying:</strong> verify the recipient name and UPI ID in your payment app before confirming the transaction. Enter the amount agreed with KR INVESTMENT; no amount is pre-filled.</p>
+      </article>
+    </section>
+  </main>
+  <footer>KR INVESTMENT · Vijay Nagar, Indore, Madhya Pradesh</footer>
+  <script>
+    const copyButton = document.getElementById('copyButton');
+    const upiId = document.getElementById('upiId').textContent.trim();
+    const status = document.getElementById('copyStatus');
+
+    copyButton.addEventListener('click', async () => {
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(upiId);
+        } else {
+          const field = document.createElement('textarea');
+          field.value = upiId;
+          field.style.position = 'fixed';
+          field.style.opacity = '0';
+          document.body.appendChild(field);
+          field.select();
+          const copied = document.execCommand('copy');
+          field.remove();
+          if (!copied) throw new Error('Copy unavailable');
+        }
+        status.textContent = 'UPI ID copied.';
+        copyButton.textContent = 'Copied!';
+        setTimeout(() => { copyButton.textContent = 'Copy'; }, 1800);
+      } catch (e) {
+        status.textContent = 'Please copy manually: ' + upiId;
+      }
+    });
+  </script>
+</body>
+</html>
