@@ -14,6 +14,13 @@
     .nav { max-width:1040px; margin:auto; display:flex; justify-content:space-between; align-items:center; gap:14px; }
     .brand { color:var(--gold); font-size:20px; font-weight:800; letter-spacing:1.4px; text-decoration:none; }
     .back { color:var(--muted); text-decoration:none; font-size:14px; }
+    .nav-links { display:flex; align-items:center; gap:20px; flex-wrap:wrap; }
+    .nav-links a { color:var(--muted); text-decoration:none; font-size:14px; }
+    .nav-links a:hover, .nav-links a.active { color:var(--gold); }
+    .steps { margin-top:20px; padding-top:18px; border-top:1px solid #2a3b50; }
+    .steps h3 { font-size:15px; margin:0 0 8px; }
+    .steps ol { padding-left:20px; margin:0; color:var(--muted); font-size:13px; line-height:1.8; }
+    .payment-help { margin-top:24px; color:var(--muted); line-height:1.7; font-size:14px; }
     main { max-width:1040px; margin:0 auto; padding:42px 18px 56px; }
     .intro { text-align:center; margin-bottom:28px; }
     .eyebrow { color:var(--gold); text-transform:uppercase; letter-spacing:2px; font-size:12px; font-weight:bold; }
@@ -43,14 +50,19 @@
   <header>
     <nav class="nav" aria-label="Main navigation">
       <a class="brand" href="/">KR INVESTMENT</a>
-      <a class="back" href="/">← Back to website</a>
+      <div class="nav-links" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="services.html">Services</a>
+        <a class="active" href="payment.html">Payment</a>
+        <a href="support.html">Support</a>
+      </div>
     </nav>
   </header>
   <main>
     <section class="intro">
       <div class="eyebrow">Secure payment details</div>
       <h1>Make a Payment</h1>
-      <p>Scan the QR code using your UPI app, or copy the UPI ID below to pay through your preferred app.</p>
+      <p>Use the QR code or UPI ID below to pay KR INVESTMENT. Please confirm the service details and agreed amount with our team before completing a transaction.</p>
     </section>
     <section class="layout">
       <article class="card">
@@ -69,9 +81,11 @@
         </div>
         <div class="status" id="copyStatus" role="status" aria-live="polite"></div>
         <a class="pay-btn" href="upi://pay?pa=krinvestment%40ibl&pn=KR%20INVESTMENTS" id="upiPayLink">Open UPI App</a>
-        <p class="note"><strong>Please check before paying:</strong> verify the recipient name and UPI ID in your payment app before confirming the transaction. Enter the amount agreed with KR INVESTMENT; no amount is pre-filled.</p>
+        <p class="note"><strong>Before you pay:</strong> verify the recipient name and UPI ID in your payment app. Enter only the amount agreed with KR INVESTMENT; no amount is pre-filled. Never share your UPI PIN or OTP with anyone.</p>
+        <div class="steps"><h3>Payment steps</h3><ol><li>Scan the QR code or copy the UPI ID.</li><li>Check the recipient name and enter the agreed amount in your UPI app.</li><li>Review the details carefully before confirming payment.</li><li>Keep your transaction reference and contact support if you need assistance.</li></ol></div>
       </article>
     </section>
+    <p class="payment-help">Need help before paying? Visit the <a href="support.html" style="color:var(--gold)">Support page</a> to contact KR INVESTMENT. Payments should only be made after you have confirmed the service details and terms.</p>
   </main>
   <footer>KR INVESTMENT · Vijay Nagar, Indore, Madhya Pradesh</footer>
   <script>
